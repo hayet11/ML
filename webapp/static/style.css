@@ -1,0 +1,295 @@
+/* ---------- base ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #f4f6f9;
+    color: #1f2a37;
+    line-height: 1.6;
+    padding: 40px 20px;
+}
+
+.conteneur {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+/* ---------- entete ---------- */
+.entete {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.entete h1 {
+    font-size: 30px;
+    font-weight: 650;
+    letter-spacing: -0.5px;
+    color: #14213d;
+    margin-bottom: 10px;
+}
+
+.sous-titre {
+    color: #5b6b7f;
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* ---------- cartes ---------- */
+.carte {
+    background: #ffffff;
+    border: 1px solid #e3e8ef;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(20, 33, 61, 0.04);
+}
+
+.carte h2 {
+    font-size: 16px;
+    font-weight: 620;
+    color: #14213d;
+    margin-bottom: 8px;
+}
+
+.aide {
+    font-size: 13.5px;
+    color: #6b7a8d;
+    margin-bottom: 20px;
+}
+
+/* ---------- fichiers ---------- */
+.grille-fichiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+@media (max-width: 640px) {
+    .grille-fichiers {
+        grid-template-columns: 1fr;
+    }
+}
+
+.champ-fichier {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px;
+    border: 1px solid #e3e8ef;
+    border-radius: 9px;
+    background: #fafbfc;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.champ-fichier.rempli {
+    border-color: #4a7ba7;
+    background: #f2f7fb;
+}
+
+.champ-fichier label {
+    font-size: 12.5px;
+    font-weight: 570;
+    color: #3d4d63;
+}
+
+.champ-fichier input[type="file"] {
+    font-size: 12px;
+    color: #5b6b7f;
+}
+
+.champ-fichier input[type="file"]::file-selector-button {
+    padding: 5px 10px;
+    margin-right: 8px;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    background: #ffffff;
+    font-size: 11.5px;
+    color: #3d4d63;
+    cursor: pointer;
+}
+
+.champ-fichier input[type="file"]::file-selector-button:hover {
+    background: #eef3f8;
+}
+
+.etat-fichier {
+    font-size: 11px;
+    color: #8a98a9;
+    font-style: italic;
+}
+
+.champ-fichier.rempli .etat-fichier {
+    color: #4a7ba7;
+    font-style: normal;
+    font-weight: 500;
+}
+
+/* ---------- case a cocher ---------- */
+.case-accepter {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 13px 15px;
+    border: 1px solid #e3e8ef;
+    border-radius: 9px;
+    background: #fafbfc;
+    cursor: pointer;
+    font-size: 13px;
+    color: #3d4d63;
+}
+
+.case-accepter:hover {
+    border-color: #cfd8e3;
+}
+
+.case-accepter input[type="checkbox"] {
+    margin-top: 2px;
+    width: 15px;
+    height: 15px;
+    accent-color: #4a7ba7;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.case-accepter em {
+    color: #8a98a9;
+    font-style: normal;
+    font-size: 12px;
+}
+
+.note-accepter {
+    margin-top: 9px;
+    font-size: 12px;
+    color: #8a98a9;
+    line-height: 1.55;
+}
+
+.note-accepter code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 11.5px;
+    background: #eef3f8;
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: #4a7ba7;
+}
+
+/* ---------- bouton ---------- */
+.bouton-principal {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #14213d;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 570;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+}
+
+.bouton-principal:hover {
+    background: #1e2f52;
+}
+
+.bouton-principal:active {
+    transform: scale(0.995);
+}
+
+.bouton-principal:disabled {
+    background: #8a98a9;
+    cursor: not-allowed;
+}
+
+.mention {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 12px;
+    color: #8a98a9;
+}
+
+/* ---------- alertes ---------- */
+.alerte {
+    padding: 13px 18px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+    border-left: 3px solid;
+}
+
+.alerte.erreur {
+    background: #fdf2f2;
+    border-color: #d1495b;
+    color: #8f2d3a;
+}
+
+.alerte.succes {
+    background: #f0f8f2;
+    border-color: #4a9d5f;
+    color: #2d6b3d;
+}
+
+.alerte.avertissement {
+    background: #fdf8ef;
+    border-color: #c9881f;
+    color: #7a5512;
+}
+
+/* ---------- pied ---------- */
+.pied {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 12.5px;
+    color: #8a98a9;
+}
+
+/* ---------- voile de chargement ---------- */
+.voile {
+    position: fixed;
+    inset: 0;
+    background: rgba(244, 246, 249, 0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.voile.actif {
+    display: flex;
+}
+
+.chargement {
+    text-align: center;
+}
+
+.roue {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 18px;
+    border: 3.5px solid #dbe3ec;
+    border-top-color: #4a7ba7;
+    border-radius: 50%;
+    animation: tourner 0.85s linear infinite;
+}
+
+@keyframes tourner {
+    to { transform: rotate(360deg); }
+}
+
+.chargement p {
+    font-size: 14px;
+    color: #3d4d63;
+    font-weight: 500;
+}
+
+.chargement .detail {
+    font-size: 12.5px;
+    color: #8a98a9;
+    font-weight: 400;
+    margin-top: 5px;
+}

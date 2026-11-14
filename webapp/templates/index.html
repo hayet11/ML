@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prédiction de churn</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="conteneur">
+
+    <header class="entete">
+        <h1>Prédiction de churn</h1>
+        <p class="sous-titre">
+            Déposez les 6 fichiers du mois. Le modèle vous renvoie,
+            pour chaque client, s'il risque de partir.
+        </p>
+    </header>
+
+    {# messages renvoyés par le serveur (erreur au chargement de la page) #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for categorie, message in messages %}
+                <div class="alerte {{ categorie }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {# messages d'erreur affichés par le script, sans rechargement #}
+    <div id="zone-alerte"></div>
+
+    <form action="{{ url_for('predire') }}" method="post"
+          enctype="multipart/form-data" id="formulaire">
+
+        <section class="carte">
+            <h2>1. Les fichiers bruts du mois</h2>
+            <p class="aide">
+                Les 6 fichiers sont nécessaires. Format attendu :
+                CSV séparé par des points-virgules.
+            </p>
+
+            <div class="grille-fichiers">
+                {% for cle, libelle in fichiers.items() %}
+                <div class="champ-fichier" data-cle="{{ cle }}">
+                    <label for="{{ cle }}">{{ libelle }}</label>
+                    <input type="file" name="{{ cle }}" id="{{ cle }}"
+                           accept=".csv" required>
+                    <span class="etat-fichier">aucun fichier</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="carte">
+            <h2>2. Le fichier produit</h2>
+            <p class="aide">
+                Pour chaque client : sa probabilité de départ, classée
+                de la plus élevée à la plus faible. Les clients au-dessus
+                de 54 % sont marqués <code>churn</code> — le seuil qui donne
+                le meilleur taux de bonnes réponses (90,07 %).
+            </p>
+
+            <label class="case-accepter">
+                <input type="checkbox" name="accepter_inconnues" value="oui">
+                <span>
+                    Continuer malgré les valeurs inconnues
+                    <em>(une offre ou un terminal jamais vu à l'entraînement)</em>
+                </span>
+            </label>
+            <p class="note-accepter">
+                Par défaut, le site refuse de prédire s'il rencontre une
+                modalité inconnue : la convertir en douce donnerait une
+                prédiction fausse sans le dire. Coche cette case pour
+                obtenir quand même le fichier — les lignes concernées
+                seront marquées dans la colonne <code>donnee_incomplete</code>.
+            </p>
+        </section>
+
+        <button type="submit" class="bouton-principal" id="bouton">
+            Analyser et télécharger les prédictions
+        </button>
+
+        <p class="mention">
+            Le fichier CSV contient : code contrat, profil, probabilité
+            de churn et prédiction, classé par risque décroissant.
+        </p>
+    </form>
+
+    <footer class="pied">
+        <p>
+            Le modèle ne voit jamais le résultat : il prédit uniquement
+            à partir des mesures du mois.
+        </p>
+    </footer>
+
+</div>
+
+<div class="voile" id="voile">
+    <div class="chargement">
+        <div class="roue"></div>
+        <p>Transformation des fichiers et prédiction en cours…</p>
+        <p class="detail">Cela peut prendre une dizaine de secondes.</p>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
